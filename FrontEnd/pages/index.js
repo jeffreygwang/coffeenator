@@ -82,7 +82,8 @@ export default function Home() {
           signer
         );
 
-        console.log("Buying coffee..")
+        console.log("Buying coffee..");
+        setRetMsg("Buying coffee...");
         const coffeeTxn = await buyMeACoffee.buyCoffee(
           name ? name : "Anon",
           message ? message : "Enjoy your coffee!",
@@ -175,9 +176,6 @@ export default function Home() {
       }
     }
   }, []);
-  
-  console.log("HJI")
-  console.log(currentAccount);
 
   return (
     <div className={styles.container}>
@@ -247,17 +245,15 @@ export default function Home() {
         ) : (
           <button onClick={connectWallet}> Connect your wallet </button>
         )}
-      </main>
 
-      {currentAccount && (memos ? (<h1>Memos Received</h1>) : <h3>No Messages Yet.</h3> )}
+        {currentAccount && (retMsg ? (<p>Coffee Sent! {retMsg}</p>) : <p></p>)}
+
+        {currentAccount && (memos ? (<h1>Memos Received</h1>) : <h3>No Messages Yet.</h3> )}
       
-      {currentAccount && (retMsg ? (<p>retMsg</p>) : <p></p>)}
-      
-      {currentAccount && (memos.map((memo, idx) => {
-        <div>
-          <MemoMsg memo={memo} idx={idx}></MemoMsg>
-        </div>
-      }))}
+        {currentAccount && (memos.map((memo, idx) => {
+            return <MemoMsg memo={memo} idx={idx} key={idx}></MemoMsg>
+        }))}
+      </main>
     </div>
   )
 }
